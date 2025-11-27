@@ -122,9 +122,22 @@ async def update_verify_status(user_id, verify_token="", is_verified=False, veri
     await db_update_verify_status(user_id, current)
 
 async def get_shortlink(url, api, link):
-    shortzy = Shortzy(api_key=api, base_site=url)
-    link = await shortzy.convert(link)
-    return link
+    try:
+        if not url or not api:
+            # If shortlink config is missing, return the original link
+            return link
+        
+        shortzy = Shortzy(api_key=api, base_site=url)
+        short_link = await shortzy.convert(link)
+        
+        if short_link and isinstance(short_link, str) and len(short_link) > 0:
+            return short_link
+        else:
+            # If shortlink conversion failed, return original link as fallback
+            return link
+    except Exception as e:
+        print(f"[v0] Shortlink generation failed: {e}")
+        return link
 
 def get_exp_time(seconds):
     periods = [('days', 86400), ('hours', 3600), ('mins', 60), ('secs', 1)]
