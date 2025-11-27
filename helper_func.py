@@ -142,9 +142,12 @@ async def get_shortlink(url, api, link):
 async def get_verify_image(file_id: str = "") -> str:
     """Get verification image - uses custom image if available, otherwise uses default VERIFY_IMAGE"""
     if file_id:
-        link = await db_get_link(file_id)
-        if link.get('image'):
-            return link['image']
+        try:
+            link = await db_get_link(file_id)
+            if link and link.get('image'):
+                return link['image']
+        except:
+            pass
     return VERIFY_IMAGE
 
 def get_exp_time(seconds):
