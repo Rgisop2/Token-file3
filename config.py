@@ -50,14 +50,14 @@ SHORTLINK_API_2 = os.environ.get("SHORTLINK_API_2", "2b3dd0b54ab06c6c8e6cf617f20
 
 # Verification expiry times (in seconds)
 VERIFY_EXPIRE = int(os.environ.get('VERIFY_EXPIRE', 86400))  # 24 hours by default
-VERIFY_EXPIRE_1 = int(os.environ.get('VERIFY_EXPIRE_1', VERIFY_EXPIRE))
-VERIFY_EXPIRE_2 = int(os.environ.get('VERIFY_EXPIRE_2', VERIFY_EXPIRE))
+VERIFY_EXPIRE_1 = int(os.environ.get('VERIFY_EXPIRE_1', 86400))
+VERIFY_EXPIRE_2 = int(os.environ.get('VERIFY_EXPIRE_2', 86400))
 
 # Gap time between first and second verification (in seconds, default 30 mins)
 VERIFY_GAP_TIME = int(os.environ.get('VERIFY_GAP_TIME', 60))
 
 IS_VERIFY = os.environ.get("IS_VERIFY", "True")
-TUT_VID = os.environ.get("TUT_VID","gojfsi/2")
+TUT_VID = os.environ.get("TUT_VID", "https://www.youtube.com/@ultroidofficial")
 
 #start message
 START_MSG = os.environ.get("START_MESSAGE", "<b>ʜᴇʟʟᴏ {first}\n\n ɪ ᴀᴍ ᴍᴜʟᴛɪ ғɪʟᴇ sᴛᴏʀᴇ ʙᴏᴛ , ɪ ᴄᴀɴ sᴛᴏʀᴇ ᴘʀɪᴠᴀᴛᴇ ғɪʟᴇs ɪɴ sᴘᴇᴄɪғɪᴇᴅ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ᴏᴛʜᴇʀ ᴜsᴇʀs ᴄᴀɴ ᴀᴄᴄᴇss ɪᴛ ғʀᴏᴍ sᴘᴇᴄɪᴀʟ ʟɪɴᴋ » @ultroidofficial</b>")
