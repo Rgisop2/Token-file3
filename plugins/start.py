@@ -225,7 +225,7 @@ async def start_command(client: Client, message: Message):
                             btn.append([InlineKeyboardButton('How to use the bot', url=TUT_VID)])
                         
                         file_id = verify_status.get('link', '')
-                        verify_image = await get_verify_image(file_id)
+                        verify_image = await get_batch_verify_image(file_id)
                         caption_text = f"Complete second verification to continue accessing files.\n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE_2)}"
                         await send_verification_message(message, caption_text, verify_image, InlineKeyboardMarkup(btn))
                     else:
@@ -240,6 +240,9 @@ async def start_command(client: Client, message: Message):
                     return
                 _string = await decode(base64_string)
                 argument = _string.split("-")
+                
+                file_id = _string if len(argument) >= 2 else ""
+                
                 if len(argument) == 3:
                     try:
                         start = int(int(argument[1]) / abs(client.db_channel.id))
@@ -261,6 +264,9 @@ async def start_command(client: Client, message: Message):
                         ids = [int(int(argument[1]) / abs(client.db_channel.id))]
                     except:
                         return
+                
+                await update_verify_status(id, link=file_id)
+                
                 temp_msg = await message.reply("Please wait...")
                 try:
                     messages = await get_messages(client, ids)
