@@ -150,6 +150,21 @@ async def get_verify_image(file_id: str = "") -> str:
             pass
     return VERIFY_IMAGE
 
+async def get_batch_verify_image(file_id: str = "") -> str:
+    """Get batch verification image - uses batch_image if available, then image, then default VERIFY_IMAGE"""
+    if file_id:
+        try:
+            link = await db_get_link(file_id)
+            if link:
+                # Prefer batch_image, fall back to regular image
+                if link.get('batch_image'):
+                    return link['batch_image']
+                elif link.get('image'):
+                    return link['image']
+        except:
+            pass
+    return VERIFY_IMAGE
+
 def get_exp_time(seconds):
     periods = [('days', 86400), ('hours', 3600), ('mins', 60), ('secs', 1)]
     result = ''
